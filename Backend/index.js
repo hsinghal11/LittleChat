@@ -2,7 +2,8 @@ const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config({ path: "./.env" });
 const cors = require("cors");
-
+const connectToMongo = require("./db");
+connectToMongo();
 const port = 4000;
 
 const app = express();
@@ -10,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 //Authentication
-app.use("/api/auth", require());
+app.use("/api/auth", require("./routes/auth"));
 
 app.get("/", (req, res) => {
   res.send("Ya working");
