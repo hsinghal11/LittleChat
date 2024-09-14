@@ -17,7 +17,7 @@ router.post("/createUser", async (req, res) => {
     const parsedPayload = userSchema.safeParse(createPayload);
     if (!parsedPayload.success) {
       return res.status(400).json({
-        msg: parsedPayload.error.message,
+        msg: parsedPayload.error.errors[0].message,
       });
     }
 
@@ -72,7 +72,7 @@ router.post("/loginUser", async (req, res) => {
     const parsedPayload = loginSchema.safeParse(loginPayload);
     if (!parsedPayload.success) {
       return res.status(400).json({
-        msg: parsedPayload.error.message,
+        msg: parsedPayload.error.errors[0].message,
       });
     }
 
