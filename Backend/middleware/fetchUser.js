@@ -13,9 +13,23 @@ const fetchUser = (req, res, next) => {
     });
   }
   try {
-    const isVerified = jwt.verify(token,JWT_SECRET, (err, de));
-    
+    const isVerified = jwt.verify(token, JWT_SECRET, (err, decoded) => {
+      if (err) {
+        if (err.name === "TokenExpiredError") {
+          return res.status(401).json({ message: "Token timing has expired" });
+        } else if (err.name === "JsonWebTokenError") {
+          return res.status(401).json({ message: "invalid Token" });
+        } else {
+          return res.status(401).json({ message: err.name });
+        }
+      }
+      console.log("Decoded payload:", decoded);
+      // res.status(200).json({ message: "Token is valid", data: decoded })
+      next();
+    });
   } catch (error) {
-    
+    console.log(error);
   }
 };
+
+module.exports = fetchUser; 

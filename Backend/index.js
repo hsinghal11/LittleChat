@@ -13,6 +13,9 @@ app.use(express.json());
 //Authentication
 app.use("/api/auth", require("./routes/auth"));
 
+//Chat
+app.use("/api/chat", require("./routes/chat"))
+
 app.get("/", (req, res) => {
   res.send("Ya working");
 });
