@@ -1,19 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-
 
 function LogIn() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [alertMessage, setAlertMessage] = useState(null);
   const [viewPass, setViewPass] = useState(false);
-
+  const token = localStorage.getItem("token");
 
   const navigate = useNavigate();
   const toSignUp = () => {
     navigate("/signup");
   };
+  useEffect(()=>{
+    if (token) {
+      navigate("/home");
+    }
+  },[])
+  
 
   async function onSubmitLogIn() {
     const response = await fetch("http://localhost:4000/api/auth/loginUser", {
@@ -25,16 +29,17 @@ function LogIn() {
       }),
     });
 
-    const handleClick= ()=>{
-        navigate("/home")
-    }
+    const handleClick = () => {
+      navigate("/home");
+    };
 
     const responseJson = await response.json();
     console.log(responseJson);
-    
+
     if (responseJson.msg === "User logged in successfully") {
       setAlertMessage({ type: "success", text: responseJson.msg });
       localStorage.setItem("token", responseJson.token);
+      localStorage.setItem("senderId", responseJson.user.id);
       handleClick();
     } else {
       setAlertMessage({
@@ -46,7 +51,6 @@ function LogIn() {
 
   return (
     <div>
-    
       <div className="h-screen bg-slate-500 flex justify-center items-center">
         <div className="card bg-white">
           <div className="card-body items-center">

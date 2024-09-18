@@ -16,6 +16,8 @@ app.use("/api/auth", require("./routes/auth"));
 //Chat
 app.use("/api/chat", require("./routes/chat"))
 
+app.use("/api/protection", require("./routes/protectionToken"))
+
 app.get("/", (req, res) => {
   res.send("Ya working");
 });

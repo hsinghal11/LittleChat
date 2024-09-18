@@ -1,6 +1,6 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import { Landing } from "./components/landing";
-import { Chat } from "./components/Chat";
+import {Landing}  from "./components/Landing";
+import Chat from "./components/Chat";
 import SignUp from "./components/Signup";
 import LogIn from "./components/Login";
 import Home from "./components/Home";

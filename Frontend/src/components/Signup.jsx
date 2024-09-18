@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function SignUp() {
@@ -7,16 +7,22 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [alertMessage, setAlertMessage] = useState(null);
   const [viewPass, setViewPass] = useState(false);
-
+  const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const toLogin = () => {
     navigate("/login");
   };
+   const handleClick = () => {
+     navigate("/home");
+   };
+useEffect(()=>{
+ 
 
-  const handleClick = () => {
+  if (token) {
     navigate("/home");
-  };
-
+  }
+},[])
+  
   async function onSubmitSignUp() {
     const response = await fetch("http://localhost:4000/api/auth/createUser", {
       method: "POST",
@@ -34,6 +40,7 @@ function SignUp() {
     if (responseJson.msg === "User created successfully") {
       setAlertMessage({ type: "success", text: responseJson.msg });
       localStorage.setItem("token", responseJson.token);
+      localStorage.setItem("senderId", responseJson.user.id);
       handleClick();
     } else {
       setAlertMessage({
@@ -113,7 +120,7 @@ function SignUp() {
               />
               <label className="input input-bordered w-full flex items-center">
                 <input
-                  type={viewPass?"text":"password"}
+                  type={viewPass ? "text" : "password"}
                   className="w-full"
                   placeholder="Password"
                   onChange={(e) => setPassword(e.target.value)}
