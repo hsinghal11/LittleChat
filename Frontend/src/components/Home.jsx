@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Chat from "./Chat";
 
 function Home() {
   const [authStatus, setAuthStatus] = useState("Token found");
-
+  const [isCheckingToken, setIsCheckingToken] = useState(true); // New state to control check status
   const navigate = useNavigate();
+  const [showChat, setShowChat] = useState(false);
+  const [otherId, setOtherId ]= useState("");
 
   useEffect(() => {
     const checkToken = async () => {
@@ -12,7 +15,7 @@ function Home() {
       if (!token) {
         setAuthStatus("No token found");
         navigate("/Signup");
-        return;
+        return; // Exit function to avoid infinite loop
       }
 
       try {
@@ -27,23 +30,39 @@ function Home() {
           }
         );
         console.log(response);
-        
         if (!response.ok) {
-          throw new Error("Token check failed");
+          setAuthStatus("Invalid token"); // Update status for invalid token
+          navigate("/login");
+          return; // Exit after navigation
         }
-        // You might want to update auth status based on the response
+
+        setAuthStatus("Token valid");
       } catch (err) {
         console.log(err);
+        setAuthStatus("Error occurred during token validation");
+      } finally {
+        setIsCheckingToken(false); // Token check is complete
       }
     };
 
-    checkToken();
-  }, [navigate]); // Add navigate to the dependency array to avoid stale closure issues
+    if (isCheckingToken) {
+      checkToken(); // Only call if check hasn't been completed
+    }
+  }, []); // Ensure check only runs once
+
+
+  function startChat(){
+    localStorage.setItem("otherId", otherId)
+    // setShowChat(true);
+    navigate("/chat")
+  }
 
   return (
     <div>
       <h1>Home</h1>
       <p>Status: {authStatus}</p>
+      <input type="text" placeholder="Other person id" onChange={(e)=>{setOtherId(e.target.value)}} />
+      <button onClick={startChat}>Start chat </button>
     </div>
   );
 }

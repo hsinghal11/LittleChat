@@ -43,7 +43,7 @@ router.post("/createUser", async (req, res) => {
     const token = jwt.sign(
       { userId: newUser._id, email: newUser.email },
       JWT_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "30d" }
     );
 
     // Returning the token and user information to the client
@@ -99,7 +99,7 @@ router.post("/loginUser", async (req, res) => {
     const token = jwt.sign(
       { userId: existingUser._id, email: existingUser.email },
       JWT_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "30d" }
     );
 
     // Returning the token and user information to the client

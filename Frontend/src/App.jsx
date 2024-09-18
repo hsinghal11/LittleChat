@@ -4,6 +4,7 @@ import Chat from "./components/Chat";
 import SignUp from "./components/Signup";
 import LogIn from "./components/Login";
 import Home from "./components/Home";
+import Logout from "./components/Logout";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
            <Route path="/signup" element={<SignUp />} />
            <Route path="/login" element={<LogIn />} />
            <Route path="/chat" element={<Chat />} />
+           <Route path="/logout" element={<Logout />} />
         </Routes>
       </BrowserRouter>
     </>
