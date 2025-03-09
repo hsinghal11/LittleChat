@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config({ path: "./.env" });
 
-const mongoURL = process.env.MONGODB_URI || "mongodb://localhost:27017/littleChat";
+const mongoURL = process.env.MONGODB_URI;
 
 const connectToMongo = () => {
   mongoose
