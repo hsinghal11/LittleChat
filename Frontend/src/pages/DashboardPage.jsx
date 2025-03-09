@@ -22,7 +22,7 @@ const DashboardPage = () => {
       
       try {
         console.log(`Fetching users for user ID: ${user.id}`);
-        const response = await fetch('http://localhost:4000/api/users/all', {
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/users/all`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ const DashboardPage = () => {
     
     try {
       console.log(`Searching for users with query: ${searchQuery}`);
-      const response = await fetch(`http://localhost:4000/api/users/search/${searchQuery}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/users/search/${searchQuery}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

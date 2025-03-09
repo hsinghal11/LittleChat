@@ -23,29 +23,39 @@ useEffect(()=>{
   }
 },[])
   
-  async function onSubmitSignUp() {
-    const response = await fetch("http://localhost:4000/api/auth/createUser", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: name,
-        email: email,
-        password: password,
-      }),
-    });
+  async function onSubmitSignUp(e) {
+    e.preventDefault();
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/createUser`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          password: password,
+        }),
+      });
 
-    const responseJson = await response.json();
-    console.log(responseJson);
+      const responseJson = await response.json();
+      console.log(responseJson);
 
-    if (responseJson.msg === "User created successfully") {
-      setAlertMessage({ type: "success", text: responseJson.msg });
-      localStorage.setItem("token", responseJson.token);
-      localStorage.setItem("senderId", responseJson.user.id);
-      handleClick();
-    } else {
+      if (responseJson.msg === "User created successfully") {
+        setAlertMessage({ type: "success", text: responseJson.msg });
+        localStorage.setItem("token", responseJson.token);
+        localStorage.setItem("senderId", responseJson.user.id);
+        handleClick();
+      } else {
+        setAlertMessage({
+          type: "error",
+          text: responseJson.msg || "Something went wrong!",
+        });
+      }
+    } catch (error) {
       setAlertMessage({
         type: "error",
-        text: responseJson.msg || "Something went wrong!",
+        text: "An error occurred. Please try again later.",
       });
     }
   }
@@ -125,7 +135,7 @@ useEffect(()=>{
                   placeholder="Password"
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <button className="ml-2" onClick={() => setViewPass(!viewPass)}>
+                <button className="ml-2" onClick={(e) => { e.preventDefault(); setViewPass(!viewPass); }}>
                   {viewPass == true ? (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

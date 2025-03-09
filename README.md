@@ -10,6 +10,7 @@ You can use these sample accounts to test the application:
 |-------|----------|
 | sample1@gmail.com | sample1 |
 | sample2@gmail.com | sample2 |
+| sample3@gmail.com | sample3 |
 
 ## Features
 
@@ -64,6 +65,9 @@ Setting up the frontend:
 cd .\Frontend\
 npm i 
 ```
+- The frontend uses environment variables for API URLs:
+  - `.env.development` - Contains development API URL (http://localhost:4000)
+  - `.env` - Contains production API URL (https://little-chat.vercel.app)
 - Start the development server:
 ```
 npm run dev

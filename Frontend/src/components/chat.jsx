@@ -8,7 +8,7 @@ const Chat = () => {
   const otherId = localStorage.getItem("otherId");
 
   const fetchChatData = () => {
-    fetch("http://localhost:4000/api/chat/showchats", {
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/chat/showchats`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,7 +60,7 @@ const Chat = () => {
     setMessage("");
     
     // Send message to the server
-    fetch("http://localhost:4000/api/chat/showchats", {
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/chat/showchats`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

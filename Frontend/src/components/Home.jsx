@@ -20,7 +20,7 @@ function Home() {
 
       try {
         const response = await fetch(
-          "http://localhost:4000/api/protection/checktoken",
+          `${import.meta.env.VITE_API_BASE_URL}/api/protection/checktoken`,
           {
             method: "POST",
             headers: {

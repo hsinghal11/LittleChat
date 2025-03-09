@@ -28,7 +28,7 @@ export const ChatProvider = ({ children }) => {
       setLoading(true);
       try {
         console.log(`Fetching chats for user ID: ${user.id}`);
-        const response = await fetch('http://localhost:4000/api/chat/user-chats', {
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/chat/user-chats`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -155,7 +155,7 @@ export const ChatProvider = ({ children }) => {
         return null;
       }
       
-      const response = await fetch('http://localhost:4000/api/chat/get-or-create', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/chat/get-or-create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -229,7 +229,7 @@ export const ChatProvider = ({ children }) => {
       }
       
       // Also save to database
-      const response = await fetch('http://localhost:4000/api/chat/add-message', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/chat/add-message`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

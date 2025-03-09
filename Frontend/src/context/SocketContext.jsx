@@ -12,16 +12,13 @@ export const SocketProvider = ({ children }) => {
   const { user, token, isAuthenticated } = useAuth();
 
   useEffect(() => {
-    // Only connect to socket if user is authenticated
-    if (isAuthenticated && user && token && user.id) {
-      console.log('Connecting to socket.io server...');
-      console.log('User ID for socket connection:', user.id);
+    if (token && user && !socket) {
+      console.log('Initializing socket connection');
       
-      // Create socket connection
-      const newSocket = io('http://localhost:4000', {
+      // Create a new socket connection
+      const newSocket = io(`${import.meta.env.VITE_API_BASE_URL}`, {
         auth: {
-          token,
-          userId: user.id // Add user ID to auth data
+          token
         }
       });
 
@@ -61,7 +58,7 @@ export const SocketProvider = ({ children }) => {
     return () => {
       // No cleanup needed if socket wasn't created
     };
-  }, [isAuthenticated, user, token]);
+  }, [token, user, socket]);
 
   // Join a chat room
   const joinRoom = (roomId) => {

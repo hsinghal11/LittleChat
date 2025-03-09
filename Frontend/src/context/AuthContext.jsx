@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
     const checkAuth = async () => {
       if (token) {
         try {
-          const response = await fetch('http://localhost:4000/api/auth/profile', {
+          const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/profile`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -56,8 +56,9 @@ export const AuthProvider = ({ children }) => {
 
   // Register a new user
   const register = async (userData) => {
+    setLoading(true);
     try {
-      const response = await fetch('http://localhost:4000/api/auth/register', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -95,8 +96,9 @@ export const AuthProvider = ({ children }) => {
 
   // Login a user
   const login = async (credentials) => {
+    setLoading(true);
     try {
-      const response = await fetch('http://localhost:4000/api/auth/login', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -136,7 +138,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       if (token) {
-        await fetch('http://localhost:4000/api/auth/logout', {
+        await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/logout`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
