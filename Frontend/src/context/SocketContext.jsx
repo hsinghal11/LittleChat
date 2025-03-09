@@ -19,7 +19,12 @@ export const SocketProvider = ({ children }) => {
       const newSocket = io(`${import.meta.env.VITE_API_BASE_URL}`, {
         auth: {
           token
-        }
+        },
+        withCredentials: true,
+        transports: ['websocket', 'polling'],
+        reconnection: true,
+        reconnectionAttempts: 5,
+        reconnectionDelay: 1000
       });
 
       // Set up event listeners

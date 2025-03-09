@@ -15,7 +15,10 @@ const port = process.env.PORT || 4000;
 
 // Initialize Express app
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: ["https://little-chat-front.vercel.app", "http://localhost:5173"],
+  credentials: true
+}));
 app.use(express.json());
 
 // Create HTTP server
@@ -24,8 +27,9 @@ const server = http.createServer(app);
 // Initialize Socket.io
 const io = new Server(server, {
   cors: {
-    origin: process.env.FRONTEND_URL, // In production, restrict this to your frontend URL
+    origin: ["https://little-chat-front.vercel.app", "http://localhost:5173"], // Allow both deployed frontend and local development
     methods: ["GET", "POST"],
+    credentials: true
   },
 });
 
