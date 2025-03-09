@@ -13,12 +13,15 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (token && user && !socket) {
-      console.log('Initializing socket connection');
+      // Get the API URL from environment variables
+      const apiUrl = import.meta.env.VITE_API_BASE_URL || 'https://little-chat.vercel.app';
+      console.log('Initializing socket connection to:', apiUrl);
       
       // Create a new socket connection
-      const newSocket = io(`${import.meta.env.VITE_API_BASE_URL}`, {
+      const newSocket = io(apiUrl, {
         auth: {
-          token
+          token,
+          userId: user.id // Make sure to include userId for authentication
         },
         withCredentials: true,
         transports: ['websocket', 'polling'],
@@ -63,7 +66,7 @@ export const SocketProvider = ({ children }) => {
     return () => {
       // No cleanup needed if socket wasn't created
     };
-  }, [token, user, socket]);
+  }, [token, user, socket, isAuthenticated]);
 
   // Join a chat room
   const joinRoom = (roomId) => {

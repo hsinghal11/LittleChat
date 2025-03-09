@@ -27,10 +27,12 @@ const server = http.createServer(app);
 // Initialize Socket.io
 const io = new Server(server, {
   cors: {
-    origin: ["https://little-chat-front.vercel.app", "http://localhost:5173"], // Allow both deployed frontend and local development
+    origin: ["https://little-chat-front.vercel.app", "http://localhost:5173", "http://localhost:3000"],
     methods: ["GET", "POST"],
-    credentials: true
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization", "auth-token", "user-id"]
   },
+  transports: ['websocket', 'polling']
 });
 
 // JWT Secret
@@ -150,6 +152,15 @@ app.use("/api/protection", require("./routes/protectionToken"));
 
 app.get("/", (req, res) => {
   res.send("LittleChat API is running");
+});
+
+// Debug route to check environment variables
+app.get("/debug", (req, res) => {
+  res.json({
+    environment: process.env.NODE_ENV || 'development',
+    frontendUrl: process.env.FRONTEND_URL || 'not set',
+    corsOrigins: ["https://little-chat-front.vercel.app", "http://localhost:5173", "http://localhost:3000"]
+  });
 });
 
 // Start the server

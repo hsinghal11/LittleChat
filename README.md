@@ -109,3 +109,27 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 This project is open source and available under the [MIT License](LICENSE).
 
+## Deployment Notes
+
+### Environment Variables
+
+For the application to work correctly in production, make sure to set these environment variables:
+
+#### Backend (Vercel)
+- `MONGODB_URI`: Your MongoDB connection string
+- `JWT_SECRET`: Secret key for JWT authentication
+- `FRONTEND_URL`: URL of your frontend application (https://little-chat-front.vercel.app)
+
+#### Frontend (Vercel)
+- `VITE_API_BASE_URL`: URL of your backend API (https://little-chat.vercel.app)
+
+### Troubleshooting Socket Connections
+
+If you experience issues with real-time messaging:
+
+1. Check browser console for connection errors
+2. Verify that environment variables are set correctly
+3. Ensure both frontend and backend are deployed and running
+4. Check that WebSocket connections are allowed by your hosting provider
+5. Visit the `/debug` endpoint on the backend to verify configuration
+
