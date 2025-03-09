@@ -10,7 +10,6 @@ You can use these sample accounts to test the application:
 |-------|----------|
 | sample1@gmail.com | sample1 |
 | sample2@gmail.com | sample2 |
-| sample3@gmail.com | sample3 |
 
 ## Features
 
