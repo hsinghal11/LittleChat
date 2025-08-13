@@ -8,15 +8,6 @@ The application is deployed and available at:
 - Frontend: [https://little-chat-front.vercel.app/](https://little-chat-front.vercel.app/)
 - Backend API: [https://little-chat.vercel.app/](https://little-chat.vercel.app/)
 
-## Guest Credentials
-
-You can use these sample accounts to test the application:
-
-| Email | Password |
-|-------|----------|
-| sample1@gmail.com | sample1 |
-| sample2@gmail.com | sample2 |
-| sample3@gmail.com | sample3 |
 
 ## Features
 
